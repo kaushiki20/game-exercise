@@ -3,22 +3,37 @@
   <head>
     <meta charset="UTF-8">
     <title>Game Exercise</title>
+    
   </head>
-  <body>
+  <body onkeydown="fun(event)" onkeyup="clearmove()">
     <p>Click the buttons to move the red square:</p>
+    <p ></p>
     <div id="myfilter"
       style="position:absolute;background-color:#000000;opacity:0.3;width:322px;height:182px;display:none"></div>
     <div id="myrestartbutton" style="position:absolute;padding-top:75px;padding-left:120px;display:none;"><button
         onclick="restartGame()">Restart</button></div>
-    <div id="canvascontainer"></div>
+    <div id="canvascontainer" ></div>
+   
     <br>
-    <div style="text-align:center;width:320px;">
+    
+    <div style="text-align:center;width:320px;" >
+    
+    
       <button ontouchstart="moveup()" onmousedown="moveup()" onmouseup="clearmove()">UP</button><br><br>
       <button ontouchstart="moveleft()" onmousedown="moveleft()" onmouseup="clearmove()">LEFT</button>
       <button ontouchstart="moveright()" onmousedown="moveright()" onmouseup="clearmove()">RIGHT</button><br><br>
       <button ontouchstart="movedown()" onmousedown="movedown()" onmouseup="clearmove()">DOWN</button>
+      <a href="/logout"  role="button" >Logout</a><br><br>
+      <button onclick="Score()">Score</button>
+      <div id="score"></div>
     </div>
+    
 
-    <script src="js/index.js"></script>
+    
+
+    <script src="\index.js"></script>
+    <script src="./app2.js"></script>
+  
+  
   </body>
 </html>

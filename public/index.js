@@ -1,8 +1,8 @@
+
 var myGameArea;
 var myGamePiece;
 var myObstacles = [];
 var myscore;
-
 function restartGame() {
   document.getElementById("myfilter").style.display = "none";
   document.getElementById("myrestartbutton").style.display = "none";
@@ -13,6 +13,7 @@ function restartGame() {
   myObstacles = [];
   myscore = {};
   document.getElementById("canvascontainer").innerHTML = "";
+document.getElementById("score").innerHTML="";
   startGame()
 }
 
@@ -90,6 +91,31 @@ function updateGameArea() {
             myGameArea.stop();
             document.getElementById("myfilter").style.display = "block";
             document.getElementById("myrestartbutton").style.display = "block";
+        
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+            
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("score", myscore.score);
+            
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: urlencoded,
+              redirect: 'follow'
+            };
+            
+            fetch("http://localhost:3000/game/:userId", requestOptions)
+              .then(response => response.text())
+              .then(result => console.log())
+              .catch(error => console.log('error', error));
+            
+
+             
+
+
+
             return;
         } 
     }
@@ -113,11 +139,21 @@ function updateGameArea() {
             myObstacles[i].x += -1;
             myObstacles[i].update();
         }
-        myscore.text="SCORE: " + myscore.score;        
-        myscore.update();
+        myscore.text="SCORE: " + myscore.score;    
+        const Score = myscore.score
+      
+
+//
+
+
+
+
+
+       myscore.update();
         myGamePiece.x += myGamePiece.speedX;
         myGamePiece.y += myGamePiece.speedY;    
         myGamePiece.update();
+       
     }
 }
 
@@ -128,6 +164,7 @@ function everyinterval(n) {
 
 function moveup(e) {
     myGamePiece.speedY = -1; 
+ 
 }
 
 function movedown() {
@@ -146,5 +183,50 @@ function clearmove(e) {
     myGamePiece.speedX = 0; 
     myGamePiece.speedY = 0; 
 }
+function fun(event){
+
+      if(event.keyCode == 37) { // left
+        myGamePiece.speedX = -1; 
+
+        }
+        else if(event.keyCode == 39) { // right
+            
+            myGamePiece.speedX = 1; 
+        }
+      else if(event.keyCode == 38) { // up
+         
+           myGamePiece.speedY = -1; 
+        }
+      else if(event.keyCode == 40) { // down
+        
+          myGamePiece.speedY = 1; 
+        }
+
+
+
+ 
+}
+
+function Score(){
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("http://localhost:3000/score", requestOptions)
+    .then(response => response.text())
+    .then(result => document.getElementById("score").innerHTML=result)
+    .catch(error => console.log('error', error));
+
+    
+
+}
+
+
+
+
+
+
+
 
 startGame();
